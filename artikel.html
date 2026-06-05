@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ms" class="bg-zinc-950 text-white scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Intelligence | Gold Saver</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen selection:bg-amber-400/30 selection:text-amber-400 relative">
+
+    <div class="sticky top-0 z-50 w-full bg-amber-500 text-zinc-950 font-bold text-xs uppercase tracking-widest py-2 px-4 text-center border-b border-amber-600/20">
+        <i class="fa-solid fa-chart-line mr-2"></i> Kemas Kini Pasaran Segera: Sesi Dagangan Emas Aktif
+    </div>
+
+    <header class="sticky top-[32px] z-40 w-full bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800 px-4 py-4 md:px-8">
+        <div class="max-w-7xl mx-auto flex items-center justify-between relative">
+            <a href="index.html" class="text-xl font-black text-amber-400 tracking-wider uppercase">GOLD SAVER</a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+                <a href="index.html" class="text-gray-400 hover:text-white transition-colors pb-1">Dashboard</a>
+                <a href="video.html" class="text-gray-400 hover:text-white transition-colors pb-1">Akademi</a>
+                <a href="artikel.html" class="text-amber-400 transition-colors border-b-2 border-amber-400 pb-1">Intelligence</a>
+            </nav>
+            <div class="flex items-center space-x-4 relative">
+                <div id="studyBubble" class="absolute right-14 bottom-1 bg-amber-400 text-zinc-950 font-bold text-xs px-3 py-1.5 rounded-lg transform opacity-0 translate-y-2 pointer-events-none transition-all duration-500 whitespace-nowrap">Daftar Percuma</div>
+                <button onclick="toggleFabDropdown()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-amber-400 p-3 rounded-full cursor-pointer"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M2 21h18v-2H2v2zM20 8h-2V5h2v3zm2-5H16v7h6V3zM4 19h10v-4H4v4zm10-5V7H4v7h10z"/></svg></button>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-bars text-xl"></i></button>
+                
+                <div id="fabDropdown" class="hidden opacity-0 translate-y-2 absolute right-0 top-14 w-64 bg-zinc-900 border border-zinc-800 rounded-xl p-2 shadow-2xl transition-all duration-500 z-50">
+                    <a href="https://pg2u.my/wanhasbullah/cara-bermula" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 p-3 text-sm rounded-lg hover:bg-zinc-800 text-white hover:text-amber-400"><i class="fa-solid fa-user-plus text-amber-400"></i><span class="font-medium">Daftar Percuma</span></a>
+                    <a href="https://pgdealer-wanhasbullah.pages.dev/chat-assist-faq" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 p-3 text-sm rounded-lg hover:bg-zinc-800 text-white hover:text-amber-400"><i class="fa-solid fa-headset text-amber-400"></i><span class="font-medium">Hubungi Pembantu Chat</span></a>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-nav-links" class="hidden opacity-0 md:hidden mt-4 pt-4 border-t border-zinc-800 flex flex-col space-y-3 text-sm font-medium">
+            <a href="index.html" class="text-gray-400 hover:text-white px-2 py-1">Dashboard</a>
+            <a href="video.html" class="text-gray-400 hover:text-white px-2 py-1">Akademi Multimedia</a>
+            <a href="artikel.html" class="text-amber-400 px-2 py-1 bg-zinc-800/50 rounded">Wealth Intelligence</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 md:py-12 space-y-8">
+        <section class="border-b border-zinc-900 pb-6">
+            <h1 class="text-2xl md:text-3xl font-black tracking-tight">Wealth Intelligence Blog</h1>
+            <p class="text-sm text-gray-400">Laporan dan kupasan fundamental mampat pasaran emas fizikal elit.</p>
+        </section>
+
+        <div id="artikelGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+    </main>
+
+    <div id="articleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 transition-all duration-300">
+        <div onclick="closeArticleModal()" class="absolute inset-0 bg-zinc-950/80 backdrop-blur-md"></div>
+        
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-2xl max-h-[85vh] rounded-2xl shadow-2xl relative z-10 overflow-y-auto flex flex-col">
+            <div class="sticky top-0 bg-zinc-900/90 backdrop-blur border-b border-zinc-800 p-4 flex items-center justify-between">
+                <span id="modalDate" class="text-[10px] font-mono tracking-wider bg-zinc-800 px-2 py-1 rounded text-amber-400">TARIKH</span>
+                <button onclick="closeArticleModal()" class="text-gray-400 hover:text-white p-2 text-sm cursor-pointer"><i class="fa-solid fa-xmark"></i> TUTUP</button>
+            </div>
+            
+            <div id="modalContent" class="p-6 md:p-8 space-y-4 text-gray-300 leading-relaxed text-sm md:text-base selection:bg-amber-400/20">
+                </div>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script src="js/artikel-data.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            hydrateArticles();
+        });
+
+        function hydrateArticles() {
+            const grid = document.getElementById("artikelGrid");
+            if(!grid) return;
+            grid.innerHTML = "";
+
+            DATA_ARTIKEL.forEach(art => {
+                const card = document.createElement("div");
+                card.className = "bg-zinc-900 border border-zinc-800 p-6 rounded-2xl shadow-xl flex flex-col justify-between space-y-4 hover:border-zinc-700 transition-all duration-300";
+                card.innerHTML = `
+                    <div class="space-y-2">
+                        <span class="text-[10px] font-mono font-bold tracking-widest text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2 py-0.5 rounded uppercase">${art.date}</span>
+                        <h3 class="text-base font-bold text-white tracking-tight leading-snug">${art.title}</h3>
+                        <p class="text-xs text-gray-400 line-clamp-3">${art.excerpt}</p>
+                    </div>
+                    <button onclick="fetchArticlePayload('${art.slug}', '${art.date}')" class="inline-flex items-center space-x-2 text-xs font-bold text-amber-400 hover:text-amber-500 tracking-wider uppercase transition-colors pt-2 cursor-pointer w-fit">
+                        <span>Baca Lagi</span> <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // CLIENT-SIDE ASYNC FRACTURE ENJIN FETCH DATA
+        async function fetchArticlePayload(slug, date) {
+            const modal = document.getElementById("articleModal");
+            const container = document.getElementById("modalContent");
+            const dateBadge = document.getElementById("modalDate");
+            
+            if(!modal || !container || !dateBadge) return;
+            
+            dateBadge.textContent = date;
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-12 space-y-3">
+                    <i class="fa-solid fa-circle-notch text-2xl text-amber-400 animate-spin"></i>
+                    <p class="text-xs text-gray-500 font-mono tracking-wider uppercase">Mendapatkan fail snippet kekayaan...</p>
+                </div>
+            `;
+            
+            // Paparkan Container Modal dengan transisi lancar
+            modal.classList.remove("hidden");
+            
+            try {
+                // Fetch fail HTML hancuran mengikut corak rekabentuk GitHub Pages
+                const response = await fetch(`kandungan-artikel/${slug}.html`);
+                
+                if(!response.ok) {
+                    throw new Error(`Gagal memuat fail: Status HTTP ${response.status}`);
+                }
+                
+                const rawHTML = await response.text();
+                // Suntikan terus kandungan ke tetingkap modal pop-up (SPA Experience)
+                container.innerHTML = rawHTML;
+                
+            } catch (error) {
+                // Pengecualian Ralat Sistem Jika Fail Tiada / Isu Rangkaian
+                container.innerHTML = `
+                    <div class="text-center py-8 space-y-4">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl text-rose-500"></i>
+                        <h4 class="text-sm font-bold text-white">Ralat Pemuatan Data Asynchronous</h4>
+                        <p class="text-xs text-gray-400 max-w-xs mx-auto">Sistem tidak berjaya melakukan panggilan AJAX ke direktori kandungan asal. Sila pastikan pelayan berjalan lancar.</p>
+                        <p class="text-[10px] font-mono bg-zinc-950 p-2 rounded text-rose-400/80">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function closeArticleModal() {
+            const modal = document.getElementById("articleModal");
+            if(modal) modal.classList.add("hidden");
+        }
+    </script>
+</body>
+</html>

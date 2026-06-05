@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademi Multimedia - Gold Saver</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-gray-400 min-h-screen">
+
+    <nav class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800 px-4 py-3 flex items-center justify-between">
+        <a href="index.html" class="text-amber-400 font-black text-xl tracking-wider uppercase flex items-center gap-2">
+            <i class="fa-solid fa-chevron-left text-sm text-gray-400"></i> Gold Saver
+        </a>
+        <div class="support-btn-wrapper relative">
+            <div id="studyBubble" class="absolute bottom-[-45px] right-0 bg-amber-400 text-zinc-950 text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg opacity-0 transform translate-y-2 transition-all duration-500 ease-in-out whitespace-nowrap pointer-events-none z-50">Daftar Percuma</div>
+            <button id="fabSupportBtn" class="p-2.5 bg-zinc-800 hover:bg-zinc-700 rounded-full transition-all duration-300 focus:outline-none">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="steam steam-1" d="M9 4C9 4 7.5 5.5 9 7C10.5 8.5 9 10 9 10" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+                    <path class="steam steam-2" d="M13 3C13 3 11.5 4.5 13 6C14.5 7.5 13 9 13 9" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M18 10H4C2.89543 10 2 10.8954 2 12V15C2 18.3137 4.68629 21 8 21H14C17.3137 21 20 18.3137 20 15V12C20 10.8954 19.1046 10 18 10Z" fill="#FFFFFF" />
+                    <path d="M20 12C20 12 22 12 22 14.5C22 17 20 17 20 17" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div id="fabPopup" class="hidden absolute right-0 mt-3 w-60 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl p-2 z-50">
+                <a href="https://pg2u.my/wanhasbullah/cara-bermula" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-3 py-2.5 text-sm text-white hover:bg-zinc-800 rounded-lg"><i class="fa-solid fa-user-plus text-amber-400 w-5"></i> Daftar Percuma</a>
+                <a href="https://pgdealer-wanhasbullah.pages.dev/chat-assist-faq" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-3 py-2.5 text-sm text-white hover:bg-zinc-800 rounded-lg"><i class="fa-solid fa-comments text-amber-400 w-5"></i> Chat</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-md mx-auto px-4 pt-6 md:max-w-4xl">
+        <header class="mb-6">
+            <h1 class="text-2xl font-extrabold text-white">Akademi Multimedia</h1>
+            <p class="text-xs text-gray-500 mt-1">Gali ilmu pengurusan emas melalui siri video modular interaktif kami.</p>
+        </header>
+
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-4 mb-4 border-b border-zinc-900">
+            <button data-filter="all" class="filter-btn shrink-0 px-4 py-2 text-xs font-bold rounded-full bg-amber-400 text-zinc-950 shadow-md transition-all">Semua Video</button>
+            <button data-filter="tutorial" class="filter-btn shrink-0 px-4 py-2 text-xs font-semibold rounded-full bg-zinc-900 text-gray-400 border border-zinc-800 hover:bg-zinc-800 transition-all">Tutorial</button>
+            <button data-filter="analisis" class="filter-btn shrink-0 px-4 py-2 text-xs font-semibold rounded-full bg-zinc-900 text-gray-400 border border-zinc-800 hover:bg-zinc-800 transition-all">Analisis Pasaran</button>
+        </div>
+
+        <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
+            </div>
+    </main>
+
+    <script src="js/video-data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Enjin Hidrasi Data Video & Filter Logic
+        const videoGrid = document.getElementById('videoGrid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        function hydrateVideos(filter = 'all') {
+            videoGrid.innerHTML = '';
+            const filteredData = filter === 'all' ? VIDEO_DATA : VIDEO_DATA.filter(v => v.category === filter);
+
+            filteredData.forEach(video => {
+                const card = document.createElement('div');
+                card.className = "bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-all duration-300";
+                
+                let playerHtml = '';
+                if (video.platform === 'youtube') {
+                    playerHtml = `
+                        <div class="relative w-full aspect-video bg-black">
+                            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${video.videoId}" title="${video.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>`;
+                } else if (video.platform === 'tiktok') {
+                    playerHtml = `
+                        <div class="relative w-full aspect-[9/16] max-w-[320px] mx-auto bg-black border border-zinc-800 rounded-xl my-2 overflow-hidden">
+                            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.tiktok.com/player/v1/${video.videoId}?music_info=0&description=0" title="${video.title}" frameborder="0" allow="fullscreen"></iframe>
+                        </div>`;
+                }
+
+                card.innerHTML = `
+                    ${playerHtml}
+                    <div class="p-4 bg-zinc-900">
+                        <span class="inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-zinc-800 text-amber-400 mb-2">${video.category}</span>
+                        <h3 class="text-sm font-bold text-white leading-snug line-clamp-2">${video.title}</h3>
+                    </div>
+                `;
+                videoGrid.appendChild(card);
+            });
+        }
+
+        // Event listener penapis kategori
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterButtons.forEach(b => b.classList.replace('bg-amber-400', 'bg-zinc-900'), b => b.classList.replace('text-zinc-950', 'text-gray-400'));
+                filterButtons.forEach(b => b.classList.add('border', 'border-zinc-800'));
+                
+                btn.classList.replace('bg-zinc-900', 'bg-amber-400');
+                btn.classList.replace('text-gray-400', 'text-zinc-950');
+                btn.classList.remove('border', 'border-zinc-800');
+                
+                hydrateVideos(btn.getAttribute('data-filter'));
+            });
+        });
+
+        // Initialize First Render
+        window.addEventListener('DOMContentLoaded', () => hydrateVideos('all'));
+    </script>
+</body>
+</html>
